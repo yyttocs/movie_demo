@@ -34,6 +34,14 @@ module.exports = function(grunt){
                 }
             }
         },
+
+        mochaTest: {
+            options: {
+                reporter: 'spec'
+            },
+            src: ['test/**/*.js']
+        },
+        
         concurrent: {
             tasks: ['nodemon', 'watch'],
             options: {
@@ -44,7 +52,9 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch')   //文件添加删除修改,grunt就会重新执行这里面的任务
     grunt.loadNpmTasks('grunt-nodemon')    //实时监听入口文件 app.js 出现改动 自动重启app.js
     grunt.loadNpmTasks('grunt-concurrent')  // 针对慢任务 开发的插件 优化构建时间 跑多个阻塞的任务
+    grunt.loadNpmTasks('grunt-mocha-test')
 
     grunt.option('force', true)  // 设置true 不要因为语法警告中断grunt的整个服务
     grunt.registerTask('default', ['concurrent'])  //grunt 注册任务
+    grunt.registerTask('test', ['mochaTest'])
 }
